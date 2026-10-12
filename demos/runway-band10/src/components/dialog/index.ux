@@ -1,0 +1,9 @@
+<template>
+<div if="{{visible}}" class="scrim"><div class="dialog" style="background-color: {{surface}};"><text class="title" style="color: {{foreground}};">{{title}}</text><text class="message" style="color: {{secondary}};">{{message}}</text><div class="actions"><text class="action-label" style="color: {{accent}};" @click="cancel">{{cancelText}}</text><text class="action-label" style="color: {{accent}};" @click="confirm">{{confirmText}}</text></div></div></div>
+</template>
+<style>
+.scrim { position:absolute; left:0px; top:0px; width:100%; height:100%; align-items:center; justify-content:center; background-color:#66000000; } .dialog { width:90%; padding:11px; border-radius:16px; flex-direction:column; } .title { font-size: 16px; line-height:20px; font-weight:600; } .message { font-size: 12px; line-height:17px; margin-top:5px; } .actions { flex-direction:row; justify-content:space-between; margin-top:12px; } .action-label { font-size:12px; line-height:16px; font-weight:600; }
+</style>
+<script>
+export default { props:['visible','title','message','confirmText','cancelText','surface','foreground','secondary','accent'], data:{visible:false,title:'确认',message:'是否继续？',confirmText:'确认',cancelText:'取消',surface:'#FFFFFF',foreground:'#1C1B1F',secondary:'#625D6B',accent:'#356DFF'}, confirm(){this.visible=false;this.$emit('confirm')}, cancel(){this.visible=false;this.$emit('cancel')} }
+</script>

@@ -1,0 +1,14 @@
+{
+  "name": "button",
+  "description": "Reusable Vela UX button",
+  "props": {
+    "label": "控件",
+    "variant": "filled",
+    "accent": "#356DFF",
+    "disabled": false,
+    "scale": 1
+  },
+  "events": [
+    "click"
+  ]
+}

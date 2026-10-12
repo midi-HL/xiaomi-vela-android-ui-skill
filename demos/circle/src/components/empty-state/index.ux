@@ -1,0 +1,37 @@
+<template>
+  <div class="empty-state" style="background-color: {{surface}};">
+    <img class="empty-illustration" src="./images/{{themeId}}-{{modeId}}.png" />
+    <text class="empty-title" style="color: {{foreground}};">{{title}}</text>
+    <text class="empty-message" style="color: {{secondary}};">{{message}}</text>
+  </div>
+</template>
+
+<style>
+.empty-state {
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 8px;
+  border-radius: 16px;
+}
+.empty-illustration { width: 48px; height: 48px; }
+.empty-title { width: 100%; margin-top: 4px; font-size: 14px; line-height: 18px; font-weight: 600; text-align: center; }
+.empty-message { width: 100%; margin-top: 2px; font-size: 12px; line-height: 16px; text-align: center; }
+</style>
+
+<script>
+export default {
+  props: ['title', 'message', 'themeId', 'modeId', 'surface', 'foreground', 'secondary'],
+  data: {
+    title: '暂无项目',
+    message: '内容会显示在这里',
+    themeId: 'blue',
+    modeId: 'light',
+    surface: '#EFF3FC',
+    foreground: '#171923',
+    secondary: '#5D6270'
+  }
+}
+</script>

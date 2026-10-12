@@ -1,0 +1,70 @@
+<template>
+  <div class="page" style="background-color: {{bg}};" @swipe="onRootSwipe">
+    <text class="time" style="color: {{fg}};">{{time}}</text>
+    <text class="heading" style="color: {{fg}};">显示设置</text>
+    <list class="settings-list" bounces="true">
+      <list-item type="font" class="section font-section" style="background-color: {{surface}};">
+        <div class="section-title"><text class="section-name" style="color: {{fg}};">说明字号偏好</text><text class="font-number" style="color: {{accent}};">{{bodyFont}}</text></div>
+        <text class="section-caption" style="color: {{secondary}};">仅调整说明文字</text>
+        <div class="font-actions"><div class="step-button" style="background-color: {{soft}};" @click="adjust(-1)"><text class="step-button-label" style="color: {{accent}};">A−</text></div><div class="font-track" style="background-color: {{soft}};"><div class="font-fill" style="background-color: {{accent}}; width: {{scaleWidth}}px;"></div></div><div class="step-button" style="background-color: {{soft}};" @click="adjust(1)"><text class="step-button-label" style="color: {{accent}};">A＋</text></div></div>
+      </list-item>
+      <list-item type="theme-heading" class="section-heading"><text class="subhead" style="color: {{fg}};">全局配色</text><text class="section-note" style="color: {{secondary}};">选择后同步到各页面</text></list-item>
+      <list-item for="{{themes}}" type="theme" class="option-row" style="background-color: {{surface}};" @click="chooseTheme($item.id)"><div class="option-copy"><text class="option-name" style="color: {{fg}};">{{$item.name}}</text><div class="swatches"><text class="swatch" style="background-color: {{$item.color}};"></text><text class="swatch" style="background-color: {{$item.soft}};"></text><text class="swatch" style="background-color: {{$item.pale}};"></text></div></div><text class="choice" style="color: {{themeId===$item.id?accent:secondary}};">{{themeId===$item.id?'●':'○'}}</text></list-item>
+      <list-item type="mode-heading" class="section-heading"><text class="subhead" style="color: {{fg}};">外观模式</text><text class="section-note" style="color: {{secondary}};">切换模式时保留强调色</text></list-item>
+      <list-item for="{{modes}}" type="mode" class="mode-row" style="background-color: {{surface}};" @click="chooseMode($item.id)"><div class="mode-mark" style="background-color: {{modeId===$item.id?accent:secondary}};"></div><div class="mode-copy"><text class="mode-name" style="color: {{fg}};">{{$item.name}}</text><text class="mode-caption" style="color: {{secondary}};">{{$item.description}}</text></div><text class="choice" style="color: {{modeId===$item.id?accent:secondary}};">{{modeId===$item.id?'●':'○'}}</text></list-item>
+      <list-item type="about" class="about-row" style="background-color: {{surface}};"><text class="about-title" style="color: {{fg}};">关于</text><text class="about-detail" style="color: {{secondary}};">Vela Material UI · 1.0.4 · MIT</text></list-item>
+      <list-item type="safe-tail" class="safe-tail"></list-item>
+    </list>
+  </div>
+</template>
+<style>
+.page { width:100%; height:100%; flex-direction:column; padding:10px 14px 8px; }
+.time { flex-shrink:0; width:100%; height:30px; text-align:center; font-size:20px; line-height:26px; font-weight:600; }
+.heading { flex-shrink:0; width:100%; height:31px; text-align:center; font-size:18px; line-height:25px; font-weight:700; margin:3px 0 5px; }
+.settings-list { width:100%; height:340px; }
+.safe-tail { width:100%; height:30px; }
+.font-section { width:100%; height:104px; padding:8px 10px; margin-bottom:6px; border-radius:15px; flex-direction:column; justify-content:center; }
+.section-title { width:100%; height:22px; flex-direction:row; justify-content:space-between; align-items:center; }
+.section-name { font-size:14px; line-height:20px; font-weight:600; }
+.font-number { font-size:16px; line-height:20px; font-weight:700; }
+.section-caption { width:100%; height:15px; margin-top:1px; font-size:10px; line-height:13px; }
+.font-actions { width:100%; height:29px; flex-direction:row; align-items:center; justify-content:space-between; margin-top:4px; }
+.step-button { width:43px; height:27px; align-items:center; justify-content:center; border-radius:10px; }
+.step-button-label { height:20px; font-size:14px; line-height:19px; font-weight:600; }
+.font-track { flex:1; height:3px; margin:0 7px; border-radius:2px; }
+.font-fill { height:3px; border-radius:2px; }
+.section-heading { width:100%; height:42px; padding:5px 3px; margin-top:5px; flex-direction:column; justify-content:center; }
+.subhead { height:20px; font-size:16px; line-height:19px; font-weight:700; }
+.section-note { width:100%; height:14px; font-size:10px; line-height:12px; }
+.option-row { width:100%; height:48px; padding:0; margin-bottom:5px; border-radius:13px; }
+.option-row { padding:5px 10px; flex-direction:row; align-items:center; justify-content:space-between; }
+.option-copy { flex:1; height:36px; flex-direction:column; justify-content:center; }
+.option-name { height:18px; font-size:14px; line-height:17px; }
+.swatches { height:12px; flex-direction:row; align-items:center; margin-top:2px; }
+.swatch { width:9px; height:9px; margin-right:4px; border-radius:6px; }
+.choice { width:20px; text-align:center; font-size:12px; }
+.mode-row { width:100%; height:48px; padding:0; margin-bottom:5px; border-radius:13px; }
+.mode-row { padding:5px 8px; flex-direction:row; align-items:center; }
+.mode-mark { width:4px; height:27px; margin-right:7px; border-radius:3px; }
+.mode-copy { flex:1; height:33px; flex-direction:column; justify-content:center; }
+.mode-name { height:17px; font-size:14px; line-height:16px; font-weight:600; }
+.mode-caption { width:100%; height:13px; font-size:10px; line-height:12px; }
+.about-row { width:100%; height:38px; padding:0; margin-top:6px; border-radius:12px; }
+.about-row { padding:7px 10px; flex-direction:row; justify-content:space-between; align-items:center; }
+.about-title { font-size:12px; font-weight:600; }
+.about-detail { font-size:10px; }
+</style>
+<script>
+import router from '@system.router'
+import storage from '@system.storage'
+import { makePalette, PREFERENCE_KEY, THEME_IDS, MODE_IDS } from '../../common/theme'
+function baseMethods(){return{
+ updateClock(){const d=new Date();this.time=(d.getHours()<10?'0':'')+d.getHours()+':'+(d.getMinutes()<10?'0':'')+d.getMinutes()},
+ loadPreferences(){storage.get({key:PREFERENCE_KEY,success:(raw)=>{try{const p=JSON.parse(raw);this.themeId=THEME_IDS.includes(p.themeId)?p.themeId:'blue';this.modeId=MODE_IDS.includes(p.modeId)?p.modeId:'light';this.bodyFont=[22,24,26].includes(Number(p.bodyFont))?Number(p.bodyFont):24;this.updateScale();this.applyPalette()}catch(e){}},fail:()=>{}})},
+ applyPalette(){const p=makePalette(this.themeId,this.modeId);this.accent=p.accent;this.soft=p.soft;this.bg=p.bg;this.surface=p.surface;this.fg=p.fg;this.secondary=p.secondary;this.outline=p.outline},
+ updateScale(){this.scaleWidth=30+(this.bodyFont-22)*12},
+ savePreferences(){storage.set({key:PREFERENCE_KEY,value:JSON.stringify({themeId:this.themeId,modeId:this.modeId,bodyFont:this.bodyFont})})},
+ initCommon(){this.updateClock();this.loadPreferences()},onRootSwipe(e){if(e&&e.direction==='right')router.back()}
+}}
+export default{...baseMethods(),data:{time:'09:41',themeId:'blue',modeId:'light',bodyFont:24,scaleWidth:54,bg:'#F7F5FA',surface:'#FFFFFF',fg:'#1C1B1F',secondary:'#625D6B',accent:'#356DFF',soft:'#EEE7F8',themes:[{id:'blue',name:'晴空蓝',color:'#356DFF',soft:'#AFC5FF',pale:'#E4EBFF'},{id:'indigo',name:'薰衣草紫',color:'#6750A4',soft:'#CBB7F2',pale:'#EEE5FF'},{id:'teal',name:'海盐青',color:'#00796B',soft:'#9CD9CB',pale:'#DFF4EE'},{id:'green',name:'鼠尾草绿',color:'#2E7D32',soft:'#AED3A6',pale:'#E6F3E1'},{id:'amber',name:'暖阳橙',color:'#B85C00',soft:'#F4BE83',pale:'#FFF0DE'},{id:'rose',name:'莓果红',color:'#B3265E',soft:'#E8A8C2',pale:'#FBE5EE'},{id:'violet',name:'柔雾紫',color:'#7B4DFF',soft:'#C8B8FF',pale:'#EFEAFF'},{id:'slate',name:'石墨灰',color:'#526477',soft:'#B6C0CC',pale:'#E8EDF2'}],modes:[{id:'light',name:'浅色',description:'明亮背景，适合日间查看'},{id:'dark',name:'暗色',description:'柔和深色表面，保留主题色'},{id:'black',name:'纯黑',description:'纯黑背景，适配 AMOLED 屏幕'}]},onInit(){this.initCommon()},onShow(){this.loadPreferences()},onReady(){},adjust(d){this.bodyFont=Math.max(22,Math.min(26,this.bodyFont+d*2));this.updateScale();this.savePreferences()},chooseTheme(id){this.themeId=id;this.applyPalette();this.savePreferences()},chooseMode(id){this.modeId=id;this.applyPalette();this.savePreferences()}}
+</script>

@@ -1,0 +1,9 @@
+<template>
+<div class="nav"><div for="{{items}}" class="item" style="background-color: {{soft}};" @click="select($idx)"><text class="label" style="color: {{$idx == value ? accent : foreground}};">{{ $idx == value ? "✓ " : "" }}{{$item}}</text></div></div>
+</template>
+<style>
+.nav { width:100%; flex-direction:row; justify-content:space-around; padding:8px 0; } .item { flex:1; min-height:38px; align-items:center; justify-content:center; border-radius:12px; } .label { font-size: 12px; line-height:16px; }
+</style>
+<script>
+export default { props:['items','value','accent','soft','foreground'], data:{items:['首页','设置'],value:0,accent:'#356DFF',soft:'#E8EEFF',foreground:'#1C1B1F'}, select(i){this.value=i;this.$emit('change',i)} }
+</script>

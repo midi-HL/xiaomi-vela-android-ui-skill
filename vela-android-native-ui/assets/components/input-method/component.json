@@ -1,0 +1,12 @@
+{
+  "name": "input-method",
+  "description": "Vela wearable custom input method with QWERTY, T9, Chinese pinyin, symbol input, and shape-specific layouts.",
+  "props": {
+    "hide": true,
+    "keyboardtype": "QWERTY",
+    "maxlength": 5,
+    "vibratemode": "",
+    "screentype": "circle"
+  },
+  "events": ["complete", "delete", "keyDown", "visibilityChange"]
+}

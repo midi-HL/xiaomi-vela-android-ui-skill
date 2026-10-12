@@ -1,0 +1,11 @@
+{
+  "name": "ring-progress",
+  "description": "Reusable Vela UX ring-progress",
+  "props": {
+    "value": 68,
+    "accent": "#356DFF",
+    "size": 88,
+    "foreground": "#1C1B1F"
+  },
+  "events": []
+}

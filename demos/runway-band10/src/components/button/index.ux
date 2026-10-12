@@ -1,0 +1,15 @@
+<template>
+<div class="button" style="background-color: {{accent}}; height: {{height}}px; min-width: {{minWidth}}px;" @click="tap"><text class="button-label" style="font-size: 14px;">{{label}}</text></div>
+</template>
+<style>
+.button { width:100%; border-radius:24px; align-items:center; justify-content:center; }
+.button-label { color:#FFFFFF; font-weight:600; }
+</style>
+<script>
+export default {
+  props: ['label', 'variant', 'accent', 'disabled', 'scale'],
+  data: { label: "继续", variant: "filled", accent: "#356DFF", disabled: false, scale: 1, height: 42, minWidth: 76 },
+  onInit() { this.height=Math.round(42*this.scale); },
+  tap() { if (!this.disabled) this.$emit("click"); }
+}
+</script>

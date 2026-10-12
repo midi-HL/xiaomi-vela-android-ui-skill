@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <g fill="none" stroke="{{accent}}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M36 43 45 28h38l9 15"/>
+    <path d="M29 44h70l8 13v35a9 9 0 0 1-9 9H30a9 9 0 0 1-9-9V57z"/>
+    <path d="M21 69h25l7 11h22l7-11h25"/>
+  </g>
+  <path d="M53 80h22l7-11H46z" fill="{{accentSoft}}"/>
+  <circle cx="64" cy="86" r="3.5" fill="{{accent}}"/>
+  <path d="M99 28v13M92.5 34.5h13" stroke="{{accent}}" stroke-width="4" stroke-linecap="round"/>
+</svg>

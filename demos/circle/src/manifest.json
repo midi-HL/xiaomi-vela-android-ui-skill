@@ -1,0 +1,42 @@
+{
+  "package": "org.openvela.material.circle",
+  "name": "Vela Material UI",
+  "versionName": "1.0.7",
+  "versionCode": 8,
+  "minPlatformVersion": 1100,
+  "deviceTypeList": [
+    "watch"
+  ],
+  "config": {
+    "designWidth": 466
+  },
+  "icon": "/common/icon.png",
+  "features": [
+    {
+      "name": "system.router"
+    },
+    {
+      "name": "system.storage"
+    },
+    {
+      "name": "system.device"
+    }
+  ],
+  "router": {
+    "entry": "pages/index",
+    "pages": {
+      "pages/index": {
+        "component": "index"
+      },
+      "pages/list": {
+        "component": "list"
+      },
+      "pages/detail": {
+        "component": "detail"
+      },
+      "pages/settings": {
+        "component": "settings"
+      }
+    }
+  }
+}

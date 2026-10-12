@@ -1,0 +1,13 @@
+{
+  "name": "card",
+  "description": "Reusable Vela UX card",
+  "props": {
+    "title": "控件标题",
+    "subtitle": "控件说明",
+    "surface": "#FFFFFF",
+    "radius": 18,
+    "foreground": "#1C1B1F",
+    "secondary": "#625D6B"
+  },
+  "events": []
+}

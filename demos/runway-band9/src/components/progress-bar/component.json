@@ -1,0 +1,10 @@
+{
+  "name": "progress-bar",
+  "description": "Reusable Vela UX progress-bar",
+  "props": {
+    "value": 68,
+    "accent": "#356DFF",
+    "track": "#D8DBE5"
+  },
+  "events": []
+}

@@ -1,0 +1,12 @@
+<template>
+<div class="wrap"><text class="value" style="color: {{foreground}};">{{value}}</text><slider min="{{min}}" max="{{max}}" value="{{value}}" @change="change" style="selected-color: {{accent}};" /></div>
+</template>
+<style>
+.wrap { width: 100%; flex-direction: row; align-items: center; } .value { width: 32px; font-size: 12px; } slider { flex: 1; height: 36px; }
+</style>
+<script>
+export default {
+  props: ['value', 'min', 'max', 'accent', 'foreground'],
+  data: { value: 50, min: 0, max: 100, accent: "#356DFF", foreground:"#1C1B1F" }, change(e) { this.value = Number(e.progress); this.$emit("change", this.value) }
+}
+</script>

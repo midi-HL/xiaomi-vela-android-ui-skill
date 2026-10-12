@@ -1,0 +1,12 @@
+<template>
+<div class="track" style="background-color: {{track}};"><div class="fill" style="width: {{value}}%; background-color: {{accent}};"></div></div>
+</template>
+<style>
+.track { width: 100%; height: 8px; border-radius: 4px; overflow: hidden; } .fill { height: 8px; border-radius: 4px; }
+</style>
+<script>
+export default {
+  props: ['value', 'accent', 'track'],
+  data: { value: 60, accent: "#356DFF", track: "#D8DBE5" }
+}
+</script>

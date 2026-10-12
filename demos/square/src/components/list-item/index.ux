@@ -1,0 +1,12 @@
+<template>
+<div class="row" style="background-color: {{surface}};" @click="tap"><div class="copy"><text class="title" style="color: {{foreground}};">{{title}}</text><text class="sub" style="color: {{secondary}};">{{subtitle}}</text></div><text class="tail" style="color: {{accent}};">{{trailing}}</text></div>
+</template>
+<style>
+.row { width: 100%; min-height: 62px; border-radius:14px; flex-direction: row; align-items: center; justify-content: space-between; padding: 10px 12px; } .copy { flex: 1; flex-direction: column; } .title { font-size: 14px; } .sub { font-size: 10px; } .tail { font-size: 20px; margin-left: 8px; }
+</style>
+<script>
+export default {
+  props: ['title', 'subtitle', 'trailing', 'accent', 'surface', 'foreground', 'secondary'],
+  data: { title: "设置项", subtitle: "简短说明", trailing: "›", accent: "#356DFF", surface: "#EAF0FF", foreground:"#1C1B1F", secondary:"#625D6B" }, tap() { this.$emit("click") }
+}
+</script>

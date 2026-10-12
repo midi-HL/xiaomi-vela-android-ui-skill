@@ -1,0 +1,12 @@
+<template>
+<div class="segments" style="background-color: {{soft}};"><text for="{{items}}" class="segment" style="color: {{$idx == value ? accent : foreground}};" @click="select($idx)">{{ $idx == value ? "● " : "" }}{{$item}}</text></div>
+</template>
+<style>
+.segments { width: 100%; flex-direction: row; padding: 3px; border-radius: 18px; background-color: #E9EBF2; } .segment { flex: 1; text-align: center; padding: 8px 3px; border-radius: 15px; font-size: 12px; }
+</style>
+<script>
+export default {
+  props: ['items', 'value', 'accent', 'soft', 'foreground'],
+  data: { items: ["浅色", "暗色", "纯黑"], value: 0, accent: "#356DFF", soft:"#E8EEFF", foreground:"#1C1B1F" }, select(i) { this.value=i; this.$emit("change", i) }
+}
+</script>

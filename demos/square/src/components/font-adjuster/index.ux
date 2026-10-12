@@ -1,0 +1,12 @@
+<template>
+<div class="adjuster"><div class="button-surface" style="background-color: {{soft}};" @click="shift(-1)"><text class="button" style="color: {{accent}};">A−</text></div><text class="value" style="color: {{foreground}};">{{value}} px</text><div class="button-surface" style="background-color: {{soft}};" @click="shift(1)"><text class="button" style="color: {{accent}};">A＋</text></div></div>
+</template>
+<style>
+.adjuster { width:100%; flex-direction: row; align-items: center; justify-content: space-between; } .button-surface { min-width:38px; height:30px; padding:0 7px; border-radius:10px; align-items:center; justify-content:center; } .button { font-size: 14px; line-height:20px; } .value { font-size: 12px; }
+</style>
+<script>
+export default {
+  props: ['value', 'min', 'max', 'step', 'accent', 'soft', 'foreground'],
+  data: { value: 24, min: 22, max: 26, step: 2, large: 26, accent:"#356DFF", soft:"#E8EEFF", foreground:"#1C1B1F" }, shift(d) { this.value = Math.max(this.min, Math.min(this.max, this.value + d * this.step)); this.large = Math.min(this.max, this.value + 2); this.$emit("change", { base: this.value, large: this.large, scale: this.value / 24 }) }
+}
+</script>

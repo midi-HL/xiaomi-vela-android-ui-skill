@@ -1,0 +1,58 @@
+<template>
+  <div class="page" style="background-color: {{bg}};" @swipe="onRootSwipe">
+    <div class="home-header"><text class="time" style="color: {{fg}};">{{time}}</text><text class="brand-title" style="color: {{fg}};">组件示例库</text></div>
+    <div class="section-head"><text class="section-title" style="color: {{fg}};">浏览组件</text><text class="section-count" style="color: {{secondary}};">17 项 · 4 类</text></div>
+    <list class="home-list" bounces="true">
+      <list-item for="{{categoryRows}}" type="category-row" class="category-row">
+        <div class="category-tile" style="background-color: {{surface}};" @click="openEntry($item.left.id)">
+          <div class="tile-heading"><text class="category-label" style="color: {{fg}};">{{$item.left.name}}</text><text if="{{$item.left.count}}" class="category-count" style="color: {{secondary}};">{{$item.left.count}}</text></div>
+          <marquee id="{{$item.left.marqueeId}}" class="category-description" scrollamount="1" loop="-1" style="color: {{secondary}}; font-size: {{bodyCopyFont}}px;">{{$item.left.description}}</marquee>
+        </div>
+        <div if="{{$item.right.id}}" class="category-tile" style="background-color: {{surface}};" @click="openEntry($item.right.id)">
+          <div class="tile-heading"><text class="category-label" style="color: {{fg}};">{{$item.right.name}}</text><text if="{{$item.right.count}}" class="category-count" style="color: {{secondary}};">{{$item.right.count}}</text></div>
+          <marquee id="{{$item.right.marqueeId}}" class="category-description" scrollamount="1" loop="-1" style="color: {{secondary}}; font-size: {{bodyCopyFont}}px;">{{$item.right.description}}</marquee>
+        </div>
+      </list-item>
+      <list-item type="safe-tail" class="safe-tail"></list-item>
+    </list>
+  </div>
+</template>
+<style>
+.page { width:100%; height:100%; flex-direction:column; padding:10px 16px 8px; }
+.home-header { flex-shrink:0; width:100%; height:34px; flex-direction:row; align-items:center; justify-content:space-between; }
+.time { flex:1; height:30px; text-align:left; font-size:18px; line-height:25px; font-weight:600; }
+.brand-title { font-size:16px; line-height:22px; font-weight:700; text-align:right; }
+.section-head { flex-shrink:0; width:100%; height:27px; flex-direction:row; justify-content:space-between; align-items:center; margin-top:3px; }
+.section-title { font-size:16px; line-height:22px; font-weight:700; }
+.section-count { font-size:10px; line-height:14px; }
+.home-list { width:100%; flex:1; }
+.safe-tail { width:100%; height:30px; }
+.category-row { width:100%; height:66px; padding:0; margin-bottom:7px; flex-direction:row; justify-content:space-between; }
+.category-tile { width:48%; height:66px; padding:7px 8px; border-radius:14px; flex-direction:column; justify-content:center; }
+.tile-heading { width:100%; height:19px; flex-direction:row; align-items:center; justify-content:space-between; }
+.category-label { height:18px; font-size:14px; line-height:18px; font-weight:600; }
+.category-count { font-size:10px; line-height:13px; }
+.category-description { width:100%; height:15px; margin-top:2px; font-size:10px; line-height:13px; }
+</style>
+<script>
+import { bodyCopySize } from '../../common/typography'
+import router from '@system.router'
+import storage from '@system.storage'
+import { makePalette, PREFERENCE_KEY, THEME_IDS, MODE_IDS } from '../../common/theme'
+function baseMethods(){return{
+ updateClock(){const d=new Date();this.time=(d.getHours()<10?'0':'')+d.getHours()+':'+(d.getMinutes()<10?'0':'')+d.getMinutes()},
+ loadPreferences(){storage.get({key:PREFERENCE_KEY,success:(raw)=>{try{const p=JSON.parse(raw);this.themeId=THEME_IDS.includes(p.themeId)?p.themeId:'blue';this.modeId=MODE_IDS.includes(p.modeId)?p.modeId:'light';this.bodyFont=[22,24,26].includes(Number(p.bodyFont))?Number(p.bodyFont):24;this.bodyCopyFont=bodyCopySize(this.bodyFont);this.applyPalette()}catch(e){}},fail:()=>{}})},
+ applyPalette(){const p=makePalette(this.themeId,this.modeId);this.accent=p.accent;this.soft=p.soft;this.bg=p.bg;this.surface=p.surface;this.fg=p.fg;this.secondary=p.secondary;this.outline=p.outline},
+ initCommon(){this.updateClock();this.loadPreferences()},
+ onRootSwipe(e){if(e&&e.direction==='right')router.back()}
+}}
+const allCategories=[{id:'buttons',marqueeId:'home-buttons',name:'按钮与容器',description:'按钮、卡片、标签与列表项',count:'4 项'},{id:'inputs',marqueeId:'home-inputs',name:'选择与调节',description:'开关、滑块、字号与选项',count:'7 项'},{id:'feedback',marqueeId:'home-feedback',name:'进度与状态',description:'进度、提示与空状态',count:'5 项'},{id:'navigation',marqueeId:'home-navigation',name:'导航与辅助',description:'底部导航与常用辅助',count:'1 项'}];
+const settingsEntry={id:'settings',marqueeId:'home-settings',name:'显示设置',description:'字号、主题与显示模式',count:''};
+const emptyEntry={id:'',marqueeId:'',name:'',description:'',count:''};
+export default{
+ ...baseMethods(),
+ data:{time:'09:41',themeId:'blue',modeId:'light',bodyFont:24,bodyCopyFont:11,bg:'#F7F5FA',surface:'#FFFFFF',fg:'#1C1B1F',secondary:'#625D6B',accent:'#356DFF',soft:'#EEE7F8',categories:allCategories,categoryRows:[{left:allCategories[0],right:allCategories[1]},{left:allCategories[2],right:allCategories[3]},{left:settingsEntry,right:emptyEntry}]},
+ onInit(){this.initCommon()},onShow(){this.loadPreferences()},onReady(){this.categories.concat([settingsEntry]).forEach((item)=>{try{this.$element(item.marqueeId).start()}catch(e){}})},
+ openEntry(id){if(id==='settings'){router.push({uri:'/pages/settings'});return}router.push({uri:'/pages/list',params:{category:id}})}
+}
+</script>

@@ -1,0 +1,9 @@
+{
+  "name": "vela-material-demo-circle",
+  "version": "1.0.7",
+  "description": "Vela native-style UI component showcase",
+  "scripts": {
+    "release": "aiot release"
+  },
+  "license": "MIT"
+}

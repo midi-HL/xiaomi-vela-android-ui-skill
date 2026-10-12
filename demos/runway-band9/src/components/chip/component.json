@@ -1,0 +1,13 @@
+{
+  "name": "chip",
+  "description": "Reusable Vela UX chip",
+  "props": {
+    "label": "控件",
+    "selected": false,
+    "accent": "#356DFF",
+    "soft": "#E8EEFF"
+  },
+  "events": [
+    "click"
+  ]
+}

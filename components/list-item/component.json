@@ -1,0 +1,15 @@
+{
+  "name": "list-item",
+  "description": "Reusable Vela UX list-item",
+  "props": {
+    "title": "控件标题",
+    "subtitle": "控件说明",
+    "trailing": "›",
+    "accent": "#356DFF",
+    "foreground": "#1C1B1F",
+    "secondary": "#625D6B"
+  },
+  "events": [
+    "click"
+  ]
+}

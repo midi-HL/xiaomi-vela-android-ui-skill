@@ -1,0 +1,12 @@
+<template>
+<div class="row"><div class="control-button" style="background-color: {{soft}};" @click="down"><text class="control" style="color: {{accent}};">−</text></div><text class="value" style="color: {{foreground}};">{{value}}</text><div class="control-button" style="background-color: {{soft}};" @click="up"><text class="control" style="color: {{accent}};">＋</text></div></div>
+</template>
+<style>
+.row { width:100%; flex-direction: row; align-items: center; justify-content: center; } .control-button { width:36px; height:36px; border-radius:18px; align-items:center; justify-content:center; } .control { width: 36px; height: 36px; text-align: center; font-size: 20px; line-height:36px; } .value { width: 48px; text-align: center; font-size: 14px; }
+</style>
+<script>
+export default {
+  props: ['value', 'min', 'max', 'step', 'accent', 'soft', 'foreground'],
+  data: { value: 24, min: 22, max: 26, step: 2, accent:"#356DFF", soft:"#E8EEFF", foreground:"#1C1B1F" }, down() { this.update(-1) }, up() { this.update(1) }, update(d) { this.value = Math.max(this.min, Math.min(this.max, this.value + d * this.step)); this.$emit("change", this.value) }
+}
+</script>

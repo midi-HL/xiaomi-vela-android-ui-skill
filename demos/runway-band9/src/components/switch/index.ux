@@ -1,0 +1,12 @@
+<template>
+<div class="row"><text class="label" style="color: {{foreground}};">{{label}}</text><switch checked="{{checked}}" @change="toggle" style="track-color: {{accent}};" /></div>
+</template>
+<style>
+.row { width: 100%; min-height: 44px; flex-direction: row; align-items: center; justify-content: space-between; } .label { font-size: 12px; } .track { width: 48px; height: 28px; border-radius: 16px; padding: 3px; justify-content: center; } .thumb { width: 22px; height: 22px; border-radius: 12px; background-color: #FFFFFF; }
+</style>
+<script>
+export default {
+  props: ['label', 'checked', 'accent', 'foreground'],
+  data: { label: "启用选项", checked: false, accent: "#356DFF", foreground:"#1C1B1F" }, toggle(e) { this.checked = e.checked; this.$emit("change", this.checked) }
+}
+</script>

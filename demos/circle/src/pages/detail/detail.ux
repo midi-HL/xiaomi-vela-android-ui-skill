@@ -1,0 +1,97 @@
+<import name="ui-button" src="../../components/button/index.ux"></import>
+<import name="ui-card" src="../../components/card/index.ux"></import>
+<import name="ui-list-item" src="../../components/list-item/index.ux"></import>
+<import name="ui-radio" src="../../components/radio/index.ux"></import>
+<import name="ui-switch" src="../../components/switch/index.ux"></import>
+<import name="ui-slider" src="../../components/slider/index.ux"></import>
+<import name="ui-stepper" src="../../components/stepper/index.ux"></import>
+<import name="ui-color-picker" src="../../components/color-picker/index.ux"></import>
+<import name="ui-font-adjuster" src="../../components/font-adjuster/index.ux"></import>
+<import name="ui-progress-bar" src="../../components/progress-bar/index.ux"></import>
+<import name="ui-ring-progress" src="../../components/ring-progress/index.ux"></import>
+<import name="ui-dialog" src="../../components/dialog/index.ux"></import>
+<import name="ui-chip" src="../../components/chip/index.ux"></import>
+<import name="ui-segmented-control" src="../../components/segmented-control/index.ux"></import>
+<import name="ui-bottom-nav" src="../../components/bottom-nav/index.ux"></import>
+<import name="ui-banner" src="../../components/banner/index.ux"></import>
+<import name="ui-empty-state" src="../../components/empty-state/index.ux"></import>
+<template>
+  <div class="page" style="background-color: {{bg}};" @swipe="onRootSwipe">
+    <div class="safe-area">
+    <text class="time" style="color: {{fg}};">{{time}}</text>
+    <div class="heading"><text class="eyebrow" style="color: {{accent}};">控件示例</text><text class="heading-title" style="color: {{fg}};">{{name}}</text></div>
+    <scroll class="detail-scroll" scroll-y="true"><div class="content">
+      <div class="intro"><marquee id="descriptionMarquee" class="description" scrollamount="1" loop="-1" style="color: {{secondary}}; font-size: {{bodyCopyFont}}px;">{{description}}</marquee></div>
+      <div class="demo-card" style="background-color: {{surface}};"><div class="card-title"><text class="title" style="color: {{fg}};">交互预览</text><text class="hint" style="color: {{secondary}};">点击或拖动控件，状态会在这里更新</text></div>
+        <div class="component-stage" style="background-color: {{surface}};">
+          <ui-button if="{{componentName==='button'}}" label="主要操作" accent="{{accent}}" scale="1" @click="onAction('按钮已点按')" />
+          <ui-card if="{{componentName==='card'}}" title="学习计划" subtitle="今天完成 3 项任务" surface="{{surface}}" foreground="{{fg}}" secondary="{{secondary}}" />
+          <ui-list-item if="{{componentName==='list-item'}}" title="专注模式" subtitle="点按查看状态" trailing="›" accent="{{accent}}" surface="{{surface}}" foreground="{{fg}}" secondary="{{secondary}}" @click="onAction('列表项已点按')" />
+          <div if="{{componentName==='radio'}}" class="radio-group"><ui-radio label="选项一" foreground="{{fg}}" checked="{{radioValue===0}}" accent="{{accent}}" @change="selectRadio(0)" /><ui-radio label="选项二" foreground="{{fg}}" checked="{{radioValue===1}}" accent="{{accent}}" @change="selectRadio(1)" /></div>
+          <ui-switch if="{{componentName==='switch'}}" label="自动亮度" checked="{{switchValue}}" accent="{{accent}}" foreground="{{fg}}" @change="onSwitchChange" />
+          <ui-slider if="{{componentName==='slider'}}" value="{{sliderValue}}" min="0" max="100" accent="{{accent}}" foreground="{{fg}}" @change="onSliderChange" />
+          <ui-stepper if="{{componentName==='stepper'}}" value="{{stepperValue}}" min="22" max="26" step="2" accent="{{accent}}" soft="{{soft}}" foreground="{{fg}}" @change="onStepperChange" />
+          <ui-color-picker if="{{componentName==='color-picker'}}" value="{{pickedColor}}" colors="{{themeColors}}" @change="onColorChange" />
+          <div if="{{componentName==='font-adjuster'}}" class="font-preview"><ui-font-adjuster value="{{sampleFont}}" min="22" max="26" step="2" accent="{{accent}}" soft="{{soft}}" foreground="{{fg}}" @change="onFontChange" /><text class="sample-copy" style="color: {{fg}}; font-size: {{sampleDisplayFont}}px;">字号示例文字</text></div>
+          <ui-progress-bar if="{{componentName==='progress-bar'}}" value="{{progressValue}}" accent="{{accent}}" track="{{outline}}" />
+          <ui-ring-progress if="{{componentName==='ring-progress'}}" value="{{progressValue}}" accent="{{accent}}" size="64" foreground="{{fg}}" />
+          <div if="{{componentName==='dialog'}}" class="dialog-launch"><ui-button label="显示确认框" accent="{{accent}}" @click="showDialog" /><ui-dialog visible="{{dialogVisible}}" title="保存更改" message="是否确认保存？" surface="{{surface}}" foreground="{{fg}}" secondary="{{secondary}}" accent="{{accent}}" @confirm="onDialogClose('已确认')" @cancel="onDialogClose('已取消')" /></div>
+          <ui-chip if="{{componentName==='chip'}}" label="{{chipSelected?'已选择':'点我选择'}}" selected="{{chipSelected}}" accent="{{accent}}" soft="{{soft}}" @click="onChipChange" />
+          <ui-segmented-control if="{{componentName==='segmented-control'}}" items="{{modeLabels}}" value="{{segmentValue}}" accent="{{accent}}" soft="{{soft}}" foreground="{{fg}}" @change="onSegmentChange" />
+          <ui-bottom-nav if="{{componentName==='bottom-nav'}}" items="{{navItems}}" value="{{navValue}}" accent="{{accent}}" soft="{{soft}}" foreground="{{fg}}" @change="onNavChange" />
+          <ui-banner if="{{componentName==='banner'}}" title="同步完成" message="数据已更新" tone="info" accent="{{accent}}" soft="{{soft}}" foreground="{{fg}}" secondary="{{secondary}}" />
+          <ui-empty-state if="{{componentName==='empty-state'}}" title="暂无记录" message="开始后会显示在这里" themeId="{{themeId}}" modeId="{{modeId}}" surface="{{surface}}" foreground="{{fg}}" secondary="{{secondary}}" />
+        </div>
+        <div class="state-row" style="background-color: {{soft}};"><text class="state-label" style="color: {{secondary}};">当前状态</text><text class="state-value" style="color: {{accent}};">{{stateText}}</text></div>
+      </div>
+      <div class="usage-card" style="background-color: {{soft}};"><text class="title" style="color: {{fg}};">控件说明</text><text class="usage-copy" style="color: {{secondary}};">复制对应组件目录即可复用。</text></div>
+    </div></scroll>
+    </div>
+  </div>
+</template>
+<style>
+.page { width:100%; height:100%; flex-direction:column; align-items:center; justify-content:center; padding:0; }
+.safe-area { width:70%; height:70%; flex-direction:column; }
+.time { flex-shrink:0; width:100%; height:30px; text-align:center; font-size:20px; line-height:25px; font-weight:600; }
+.heading { flex-shrink:0; width:100%; height:49px; flex-direction:column; justify-content:center; align-items:center; margin:2px 0 5px; }
+.eyebrow { width:100%; height:15px; text-align:center; font-size:10px; line-height:14px; font-weight:600; }
+.heading-title { width:100%; height:28px; text-align:center; font-size:18px; line-height:27px; font-weight:700; }
+.detail-scroll { width:100%; flex:1; }
+.content { width:100%; flex-direction:column; padding-bottom:30px; }
+.intro { width:100%; height:18px; margin-bottom:6px; }
+.description { width:100%; height:15px; text-align:center; font-size:11px; line-height:13px; }
+.demo-card { width:100%; padding:9px 10px; margin-bottom:8px; border-radius:16px; flex-direction:column; }
+.card-title { width:100%; height:34px; flex-direction:column; justify-content:center; }
+.title { height:19px; font-size:14px; line-height:18px; font-weight:700; }
+.hint { width:100%; height:13px; font-size:10px; line-height:12px; }
+.component-stage { width:100%; height:124px; justify-content:center; align-items:center; padding:8px; border-radius:12px; }
+.font-preview { width:100%; height:90px; flex-direction:column; justify-content:space-around; align-items:center; }
+.sample-copy { width:100%; height:28px; text-align:center; }
+.radio-group { width:100%; height:94px; flex-direction:column; justify-content:space-around; }
+.dialog-launch { width:100%; align-items:center; justify-content:center; }
+.state-row { width:100%; height:29px; flex-direction:row; justify-content:space-between; align-items:center; padding:4px 8px; margin-top:7px; border-radius:9px; }
+.state-label { font-size:10px; line-height:14px; }
+.state-value { flex:1; text-align:right; font-size:10px; line-height:14px; font-weight:600; }
+.usage-card { width:100%; height:48px; padding:6px 10px; border-radius:13px; flex-direction:column; justify-content:center; }
+.usage-copy { width:100%; height:14px; font-size:10px; line-height:12px; margin-top:1px; }
+.demo-card { padding:8px; }
+.component-stage { height:116px; }
+.content { padding-bottom:32px; }
+</style>
+<script>
+import { bodyCopySize } from '../../common/typography'
+import router from '@system.router'
+import storage from '@system.storage'
+import { makePalette, PREFERENCE_KEY, THEME_IDS, MODE_IDS } from '../../common/theme'
+function baseMethods(){return{
+ updateClock(){const d=new Date();this.time=(d.getHours()<10?'0':'')+d.getHours()+':'+(d.getMinutes()<10?'0':'')+d.getMinutes()},
+ loadPreferences(){storage.get({key:PREFERENCE_KEY,success:(raw)=>{try{const p=JSON.parse(raw);this.themeId=THEME_IDS.includes(p.themeId)?p.themeId:'blue';this.modeId=MODE_IDS.includes(p.modeId)?p.modeId:'light';this.bodyFont=[22,24,26].includes(Number(p.bodyFont))?Number(p.bodyFont):24;this.bodyCopyFont=bodyCopySize(this.bodyFont);this.applyPalette()}catch(e){}},fail:()=>{}})},
+ applyPalette(){const p=makePalette(this.themeId,this.modeId);this.accent=p.accent;this.soft=p.soft;this.bg=p.bg;this.surface=p.surface;this.fg=p.fg;this.secondary=p.secondary;this.outline=p.outline},
+ initCommon(){this.updateClock();this.loadPreferences()},onRootSwipe(e){if(e&&e.direction==='right')router.back()}
+}}
+export default{...baseMethods(),private:{time:'09:41',themeId:'blue',modeId:'light',bodyFont:24,bodyCopyFont:11,bg:'#F7F5FA',surface:'#FFFFFF',fg:'#1C1B1F',secondary:'#625D6B',accent:'#356DFF',soft:'#EEE7F8',outline:'#E8E4EC',componentName:'button',name:'按钮',description:'清楚表达主要和次要操作。点按后，下方状态文字会更新。',stateText:'等待操作',radioValue:0,switchValue:false,sliderValue:42,stepperValue:24,pickedColor:'#356DFF',sampleFont:24,sampleDisplayFont:11,progressValue:68,dialogVisible:false,chipSelected:false,segmentValue:0,navValue:0,themeColors:['#356DFF','#6750A4','#00796B','#2E7D32','#B85C00','#B3265E','#7B4DFF','#526477'],modeLabels:['浅色','暗色','纯黑'],navItems:['首页','发现','设置']},protected:{id:'button'},
+ onInit(){this.initCommon();const names={button:'按钮',card:'卡片','list-item':'列表项',radio:'单选项',switch:'开关',slider:'滑块',stepper:'步进器','color-picker':'颜色选择器','font-adjuster':'字号调节器','progress-bar':'进度条','ring-progress':'圆环进度',dialog:'对话框',chip:'标签','segmented-control':'分段控制','bottom-nav':'底部导航',banner:'提示横幅','empty-state':'空状态'};this.componentName=names[this.id]?this.id:'button';this.name=names[this.componentName];const descriptions={radio:'点选选项一或选项二，当前选择会保持唯一。',switch:'拨动开关，即时查看启用或关闭状态。',slider:'拖动滑块，实时读取进度值。',stepper:'点按加减按钮，按步长调整数值。','color-picker':'选一个色块，查看颜色值和选中状态。','font-adjuster':'调节示例正文的字号；标题、时间和控件标签保持固定。','segmented-control':'选择显示模式，选中项会即时更新。','bottom-nav':'点按不同导航项，当前项会显示选中状态。',dialog:'点按按钮打开确认框，再选择确认或取消。','progress-bar':'展示任务的当前完成比例。','ring-progress':'使用圆环展示当前进度。'};this.description=descriptions[this.componentName]||'点击控件并观察当前状态。';this.initComponentState()},
+ onShow(){this.loadPreferences()},onReady(){try{this.$element('descriptionMarquee').start()}catch(e){} },initComponentState(){if(this.componentName==='radio')this.stateText='选项一';else if(this.componentName==='switch')this.stateText='关闭';else if(this.componentName==='slider')this.stateText='42';else if(this.componentName==='stepper')this.stateText='24';else if(this.componentName==='color-picker')this.stateText=this.pickedColor;else if(this.componentName==='font-adjuster')this.stateText=this.sampleFont+' px';else if(this.componentName==='segmented-control')this.stateText='浅色';else if(this.componentName==='bottom-nav')this.stateText='首页';else if(this.componentName==='progress-bar'||this.componentName==='ring-progress')this.stateText='68%';else this.stateText='等待操作'},
+ onAction(message){this.stateText=message},selectRadio(i){this.radioValue=i;this.stateText='选项'+(i===0?'一':'二')},onSwitchChange(value){this.switchValue=typeof value==='object'?!!value.checked:!!value;this.stateText=this.switchValue?'已开启':'已关闭'},onSliderChange(value){this.sliderValue=Number(value);this.stateText=String(this.sliderValue)},onStepperChange(value){this.stepperValue=Number(value);this.stateText=String(this.stepperValue)},onColorChange(value){this.pickedColor=value;this.accent=value;this.stateText=value},onFontChange(value){this.sampleFont=Number(value.base||value);this.sampleDisplayFont=bodyCopySize(this.sampleFont);this.stateText=this.sampleFont+' px'},onSegmentChange(value){this.segmentValue=Number(value);this.stateText=this.modeLabels[this.segmentValue]},onNavChange(value){this.navValue=Number(value);this.stateText=this.navItems[this.navValue]},onChipChange(value){this.chipSelected=!!value;this.stateText=this.chipSelected?'已选择':'未选择'},showDialog(){this.dialogVisible=true},onDialogClose(message){this.dialogVisible=false;this.stateText=message}
+}
+</script>

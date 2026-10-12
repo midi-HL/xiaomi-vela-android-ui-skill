@@ -1,0 +1,12 @@
+<template>
+<div class="swatches"><div for="{{colors}}" class="swatch" style="background-color: {{$item}};" @click="select($item)"><text if="{{$item == value}}" class="check">✓</text></div></div>
+</template>
+<style>
+.swatches { flex-direction: row; flex-wrap: wrap; } .swatch { width: 34px; height: 34px; border-radius: 18px; margin: 5px; align-items: center; justify-content: center; } .check { color: #FFFFFF; font-size: 20px; }
+</style>
+<script>
+export default {
+  props: ['value', 'colors'],
+  data: { value: "#356DFF", colors: ["#356DFF", "#6750A4", "#00796B", "#2E7D32", "#B85C00", "#B3265E", "#7B4DFF", "#526477"] }, select(c) { this.value = c; this.$emit("change", c) }
+}
+</script>

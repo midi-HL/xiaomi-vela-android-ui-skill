@@ -1,0 +1,49 @@
+<template>
+  <div class="page" style="background-color: {{bg}};" @swipe="onRootSwipe">
+    <text class="time" style="color: {{fg}};">{{time}}</text>
+    <div class="heading"><div class="heading-copy"><text class="heading-title" style="color: {{fg}};">{{categoryName}}</text><marquee id="categoryMarquee" class="heading-note" scrollamount="1" loop="-1" style="color: {{secondary}}; font-size: {{bodyCopyFont}}px;">{{categoryDescription}}</marquee></div><text class="heading-count" style="color: {{secondary}};">{{controls.length}} 项</text></div>
+    <list class="control-list" bounces="true">
+      <list-item for="{{controls}}" type="control" class="control-card" style="background-color: {{surface}};" @click="openDetail($item.id)">
+        <div class="control-top"><text class="control-name" style="color: {{fg}};">{{$item.name}}</text><text class="chevron" style="color: {{accent}};">›</text></div>
+        <marquee id="{{$item.marqueeId}}" class="control-description" scrollamount="1" loop="-1" style="color: {{secondary}}; font-size: {{bodyCopyFont}}px;">{{$item.description}}</marquee>
+        <div class="preview" style="background-color: {{soft}};"><text class="preview-text" style="color: {{accent}};">{{$item.preview}}</text></div>
+      </list-item>
+      <list-item type="safe-tail" class="safe-tail"></list-item>
+    </list>
+  </div>
+</template>
+<style>
+.page { width:100%; height:100%; flex-direction:column; padding:10px 14px 16px; }
+.time { flex-shrink:0; width:100%; height:30px; text-align:center; font-size:20px; line-height:26px; font-weight:600; }
+.heading { flex-shrink:0; width:100%; height:63px; flex-direction:row; align-items:center; justify-content:space-between; margin:3px 0 7px; }
+.heading-copy { flex:1; height:43px; flex-direction:column; justify-content:center; align-items:center; }
+.heading-title { width:100%; height:25px; text-align:center; font-size:18px; line-height:24px; font-weight:700; }
+.heading-note { width:100%; height:15px; text-align:center; font-size:11px; line-height:13px; margin-top:1px; }
+.heading-count { font-size:10px; line-height:14px; margin-left:5px; }
+.control-list { width:100%; flex:1; }
+.safe-tail { width:100%; height:30px; }
+.control-card { width:100%; height:90px; padding:9px 11px; margin-bottom:7px; border-radius:16px; flex-direction:column; justify-content:center; }
+.control-top { width:100%; height:23px; flex-direction:row; align-items:center; justify-content:space-between; }
+.control-name { height:21px; font-size:14px; line-height:20px; font-weight:600; }
+.chevron { width:15px; height:22px; font-size:20px; line-height:21px; text-align:center; }
+.control-description { width:100%; height:17px; font-size:11px; line-height:15px; margin-top:1px; }
+.preview { width:100%; height:27px; flex-direction:row; align-items:center; margin-top:4px; padding:3px 7px; border-radius:9px; }
+.preview-text { width:100%; height:18px; font-size:10px; line-height:16px; }
+</style>
+<script>
+import { bodyCopySize } from '../../common/typography'
+import router from '@system.router'
+import storage from '@system.storage'
+import { makePalette, PREFERENCE_KEY, THEME_IDS, MODE_IDS } from '../../common/theme'
+function baseMethods(){return{
+ updateClock(){const d=new Date();this.time=(d.getHours()<10?'0':'')+d.getHours()+':'+(d.getMinutes()<10?'0':'')+d.getMinutes()},
+ loadPreferences(){storage.get({key:PREFERENCE_KEY,success:(raw)=>{try{const p=JSON.parse(raw);this.themeId=THEME_IDS.includes(p.themeId)?p.themeId:'blue';this.modeId=MODE_IDS.includes(p.modeId)?p.modeId:'light';this.bodyFont=[22,24,26].includes(Number(p.bodyFont))?Number(p.bodyFont):24;this.bodyCopyFont=bodyCopySize(this.bodyFont);this.applyPalette()}catch(e){}},fail:()=>{}})},
+ applyPalette(){const p=makePalette(this.themeId,this.modeId);this.accent=p.accent;this.soft=p.soft;this.bg=p.bg;this.surface=p.surface;this.fg=p.fg;this.secondary=p.secondary;this.outline=p.outline},
+ initCommon(){this.updateClock();this.loadPreferences()},onRootSwipe(e){if(e&&e.direction==='right')router.back()}
+}}
+export default{
+ ...baseMethods(),private:{time:'09:41',themeId:'blue',modeId:'light',bodyFont:24,bodyCopyFont:11,bg:'#F7F5FA',surface:'#FFFFFF',fg:'#1C1B1F',secondary:'#625D6B',accent:'#356DFF',soft:'#EEE7F8',categoryName:'按钮与容器',categoryDescription:'浏览本分类中的可交互控件',controls:[]},protected:{category:'buttons'},
+ onInit(){this.initCommon();const categories={buttons:['按钮与容器','按钮、卡片、标签与列表项',[{id:'button',name:'按钮',description:'清晰表达主要与次要操作，点击后显示操作状态。',preview:'主要操作　次要操作'},{id:'card',name:'卡片',description:'将标题和辅助说明组合为信息容器。',preview:'标题　·　辅助说明'},{id:'list-item',name:'列表项',description:'展示标题、补充说明和尾部状态。',preview:'网络　　已连接　›'},{id:'chip',name:'标签',description:'切换筛选条件或标记当前状态。',preview:'已选择　　+ 添加'}]],inputs:['选择与调节','亲自点击、滑动或增减数值，查看控件状态变化。',[{id:'radio',name:'单选项',description:'点击选项，在互斥选项间切换。',preview:'● 选项一　　○ 选项二'},{id:'switch',name:'开关',description:'点击开关切换启用状态。',preview:'自动亮度　　　　 ●'},{id:'slider',name:'滑块',description:'拖动滑块调整当前数值。',preview:'━━━━━━●━━━'},{id:'stepper',name:'步进器',description:'点按加减按钮按固定步长调整。',preview:'−　　　　 24　　　　 ＋'},{id:'color-picker',name:'颜色选择器',description:'点选色板并查看选中颜色。',preview:'●　●　●　●　●'},{id:'font-adjuster',name:'字号调节器',description:'仅调整示例正文的字号。',preview:'A−　　　　 24　　　　 A＋'},{id:'segmented-control',name:'分段控制',description:'点选浅色、暗色或纯黑模式。',preview:'浅色　　暗色　　纯黑'}]],feedback:['进度与状态','查看进度、提示、确认框和空状态。',[{id:'progress-bar',name:'进度条',description:'显示任务已完成的比例。',preview:'━━━━━━●━━━━'},{id:'ring-progress',name:'圆环进度',description:'通过圆环查看目标进度。',preview:'　　　68%　　　'},{id:'dialog',name:'对话框',description:'点按按钮打开确认对话框。',preview:'取消　　　　　　 确认'},{id:'banner',name:'提示横幅',description:'显示简短的成功或提醒状态。',preview:'已保存　　查看详情 ›'},{id:'empty-state',name:'空状态',description:'解释列表当前没有内容的原因。',preview:'暂无项目'}]],navigation:['导航与辅助','点按导航项切换当前选中项。',[{id:'bottom-nav',name:'底部导航',description:'在应用主要区域之间切换。',preview:'首页　　　发现　　　设置'}]]};const c=categories[this.category]||categories.buttons;this.categoryName=c[0];this.categoryDescription=c[1];this.controls=c[2];this.controls.forEach((item,index)=>{item.marqueeId='control-description-'+index})},
+ onShow(){this.loadPreferences()},onReady(){try{this.$element('categoryMarquee').start()}catch(e){}this.controls.forEach((item)=>{try{this.$element(item.marqueeId).start()}catch(e){}})},openDetail(id){router.push({uri:'/pages/detail',params:{id:id}})}
+}
+</script>

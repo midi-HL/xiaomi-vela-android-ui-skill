@@ -1,0 +1,13 @@
+{
+  "name": "switch",
+  "description": "Reusable Vela UX switch",
+  "props": {
+    "label": "控件",
+    "checked": false,
+    "accent": "#356DFF",
+    "foreground": "#1C1B1F"
+  },
+  "events": [
+    "change"
+  ]
+}

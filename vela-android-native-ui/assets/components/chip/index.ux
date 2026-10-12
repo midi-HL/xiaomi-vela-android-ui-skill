@@ -1,0 +1,14 @@
+<template>
+<div class="chip" style="background-color: {{soft}};" @click="tap"><text class="chip-label" style="color: {{accent}};">{{selected ? "✓ " : ""}}{{label}}</text></div>
+</template>
+<style>
+.chip { flex-direction:row; align-items:center; justify-content:center; padding:8px 14px; border-radius:18px; }
+.chip-label { font-size:12px; }
+</style>
+<script>
+export default {
+  props: ['label', 'selected', 'accent', 'soft'],
+  data: { label: "全部", selected: false, accent: "#356DFF", soft: "#E8EEFF" },
+  tap() { this.selected=!this.selected; this.$emit("click", this.selected); }
+}
+</script>

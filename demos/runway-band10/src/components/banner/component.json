@@ -1,0 +1,14 @@
+{
+  "name": "banner",
+  "description": "Reusable Vela UX banner",
+  "props": {
+    "title": "控件标题",
+    "message": "说明文本",
+    "tone": "info",
+    "accent": "#356DFF",
+    "soft": "#E8EEFF",
+    "foreground": "#1C1B1F",
+    "secondary": "#625D6B"
+  },
+  "events": []
+}

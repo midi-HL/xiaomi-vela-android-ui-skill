@@ -1,0 +1,14 @@
+{
+  "name": "empty-state",
+  "description": "Reusable Vela UX empty-state",
+  "props": {
+    "title": "暂无项目",
+    "message": "内容会显示在这里",
+    "themeId": "blue",
+    "modeId": "light",
+    "surface": "palette.surface",
+    "foreground": "palette.foreground",
+    "secondary": "palette.secondary"
+  },
+  "events": []
+}

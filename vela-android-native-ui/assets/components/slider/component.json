@@ -1,0 +1,14 @@
+{
+  "name": "slider",
+  "description": "Reusable Vela UX slider",
+  "props": {
+    "value": 50,
+    "min": 0,
+    "max": 100,
+    "accent": "#356DFF",
+    "foreground": "#1C1B1F"
+  },
+  "events": [
+    "change"
+  ]
+}

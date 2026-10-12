@@ -1,0 +1,20 @@
+{
+  "name": "color-picker",
+  "description": "Reusable Vela UX color-picker",
+  "props": {
+    "value": "#356DFF",
+    "colors": [
+      "#356DFF",
+      "#6750A4",
+      "#00796B",
+      "#2E7D32",
+      "#B85C00",
+      "#B3265E",
+      "#7B4DFF",
+      "#526477"
+    ]
+  },
+  "events": [
+    "change"
+  ]
+}

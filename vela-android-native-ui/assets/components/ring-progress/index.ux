@@ -1,0 +1,12 @@
+<template>
+<div class="ring" style="width: {{size}}px; height: {{size}}px; border-color: {{accent}};"><text class="value" style="color: {{foreground}};">{{value}}%</text></div>
+</template>
+<style>
+.ring { border-width: 7px; border-style: solid; border-radius: 99px; align-items: center; justify-content: center; } .value { font-size: 12px; }
+</style>
+<script>
+export default {
+  props: ['value', 'accent', 'size', 'foreground'],
+  data: { value: 68, accent: "#356DFF", size: 72, foreground:"#1C1B1F" }
+}
+</script>

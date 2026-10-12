@@ -1,0 +1,16 @@
+{
+  "name": "bottom-nav",
+  "description": "Reusable Vela UX bottom-nav",
+  "props": {
+    "items": [
+      "首页",
+      "设置"
+    ],
+    "value": 0,
+    "accent": "#356DFF",
+    "foreground": "#1C1B1F"
+  },
+  "events": [
+    "change"
+  ]
+}

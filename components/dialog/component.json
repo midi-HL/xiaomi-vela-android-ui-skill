@@ -1,0 +1,19 @@
+{
+  "name": "dialog",
+  "description": "Reusable Vela UX dialog",
+  "props": {
+    "visible": false,
+    "title": "控件标题",
+    "message": "说明文本",
+    "confirmText": "确认",
+    "cancelText": "取消",
+    "surface": "#FFFFFF",
+    "foreground": "#1C1B1F",
+    "secondary": "#625D6B",
+    "accent": "#356DFF"
+  },
+  "events": [
+    "confirm",
+    "cancel"
+  ]
+}

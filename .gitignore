@@ -1,0 +1,17 @@
+# Local dependencies and generated build output
+**/node_modules/
+**/build/
+**/dist/
+**/.temp_*/
+**/.vela/
+
+# Signing material must never be published
+**/sign/
+**/private.pem
+**/certificate.pem
+
+# Local/editor and OS files
+.idea/
+.vscode/
+Thumbs.db
+Desktop.ini

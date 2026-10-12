@@ -1,0 +1,12 @@
+<template>
+<div class="card" style="background-color: {{surface}}; border-radius: {{radius}}px;"><text class="title" style="color: {{foreground}};">{{title}}</text><text class="sub" style="color: {{secondary}};">{{subtitle}}</text><slot></slot></div>
+</template>
+<style>
+.card { width: 100%; padding: 14px; flex-direction: column; } .title { font-size: 14px;  } .sub { font-size: 12px;  margin-top: 4px; }
+</style>
+<script>
+export default {
+  props: ['title', 'subtitle', 'surface', 'radius', 'foreground', 'secondary'],
+  data: { title: "卡片标题", subtitle: "卡片说明", surface: "#FFFFFF", radius: 18, foreground:"#1C1B1F", secondary:"#625D6B" }
+}
+</script>

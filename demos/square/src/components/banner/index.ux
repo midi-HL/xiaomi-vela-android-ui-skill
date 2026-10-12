@@ -1,0 +1,9 @@
+<template>
+<div class="banner" style="background-color: {{soft}};"><text class="title" style="color: {{foreground}};">{{title}}</text><text class="message" style="color: {{secondary}};">{{message}}</text></div>
+</template>
+<style>
+.banner { width:100%; padding:9px 10px; border-radius:12px; flex-direction:column; } .title { font-size: 14px; line-height:18px; font-weight:600; } .message { font-size: 12px; line-height:15px; margin-top:2px; }
+</style>
+<script>
+export default { props:['title','message','tone','accent','soft','foreground','secondary'], data:{title:'提示',message:'状态说明',tone:'info',accent:'#356DFF',soft:'#E8EEFF',foreground:'#1C1B1F',secondary:'#625D6B'} }
+</script>
